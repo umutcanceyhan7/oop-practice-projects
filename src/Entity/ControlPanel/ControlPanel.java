@@ -1,4 +1,6 @@
-package Entity;
+package Entity.ControlPanel;
+
+import Entity.Mediator;
 
 public interface ControlPanel {
     public void setTemperature(int desiredTemp);

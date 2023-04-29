@@ -1,5 +1,7 @@
 package Entity;
 
+import Entity.ControlPanel.ControlPanel;
+
 public class User {
     private ControlPanel controlPanel;
     public User(ControlPanel controlPanel) {

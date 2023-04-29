@@ -1,7 +1,12 @@
 package Helper;
 
 import Entity.*;
-import com.sun.tools.javac.Main;
+import Entity.Actuator.DoorLock;
+import Entity.Actuator.LightBulb;
+import Entity.Actuator.Thermostat;
+import Entity.Sensor.LightSensor;
+import Entity.Sensor.MotionSensor;
+import Entity.Sensor.TemperatureSensor;
 
 import java.util.Random;
 

@@ -1,9 +1,9 @@
 package Helper;
 
-import Entity.ControlPanel;
+import Entity.ControlPanel.ControlPanel;
 import Entity.Mediator;
 import Entity.User;
-import Entity.UserControlPanel;
+import Entity.ControlPanel.UserControlPanel;
 
 public class Simulation {
     static final int SIMULATION_DURATION = 20;

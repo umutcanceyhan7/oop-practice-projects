@@ -1,65 +1,60 @@
 @startuml
 interface Sensor {
         +getReading(): double
-        +getType(): SensorType
     }
     class TemperatureSensor {
-        -temperature: double
-        -desiredTemperature: double
     }
     class LightSensor {
-        -isOpen: boolean
     }
     class MotionSensor {
-        -isMotionDetected: boolean
     }
     interface Actuator {
         +performAction(): void
-        +getType(): ActuatorType
     }
     class Thermostat {
-        -temperature: double
+        -currentTemperature: double
         -desiredTemperature: double
     }
     class LightBulb {
-        -temperature: double
-        -desiredTemperature: double
+        -isOpen: boolean
     }
-
     class DoorLock {
+        -isLocked: boolean
     }
-    interface ControlPanel {
-        +setTemperature(int desiredTemp): void
-        +toggleLights(): void
-        +toggleDoor(): void
-    }
-    class UserControlPanel {
-    }
-    interface SmartHome {
-        +setTemperature(int desiredTemp): void
-        +toggleLights(): void
-        +toggleDoor(): void
-        +performAction(): void
-    }
+interface ControlPanel {
+    +setTemperature(int desiredTemp): void
+    +openLights(): void
+    +closeLights(): void
+    +lockTheDoor(): void
+    +unlockTheDoor(): void
+    +setMediator(Mediator mediator): void
+}
+class UserControlPanel {
+}
+interface SmartHome {
+    -temperatureSensor: TemperatureSensor
+    -lightSensor: LightSensor
+    -motionSensor: MotionSensor
+    -thermostat: Thermostat
+    -lightBulb: LightBulb
+    -doorLock: DoorLock
+    +regulateTemperature: void
+    +regulateLightBulb: void
+    +regulateDoorLock: void
+    +updateTemperature: void
+    +updateLights: void
+    +updateDoor: void
+}
 class User {
-   +updateTemparature(int desiredTemp): void
+   -controlPanel: ControlPanel
+   +updateTemperature(int desiredTemp): void
    +openLights(): void
    +closeLights(): void
    +lockTheDoor(): void
    +unlockTheDoor(): void
 }
-    enum SensorType {
-        temperature
-        light
-        motion
-    }
-    enum ActuatorType {
-        thermostat
-        lightBulb
-        doorLock
-    }
 
-ControlPanel --o SmartHome
+ControlPanel o-- SmartHome
 Sensor --o  SmartHome
 Actuator --o SmartHome
 Sensor <|-- TemperatureSensor

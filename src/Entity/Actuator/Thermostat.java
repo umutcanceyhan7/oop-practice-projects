@@ -1,6 +1,8 @@
-package Entity;
+package Entity.Actuator;
 
-public class Thermostat implements Actuator{
+import Entity.Actuator.Actuator;
+
+public class Thermostat implements Actuator {
     private int currentTemperature;
     private int desiredTemperature;
 

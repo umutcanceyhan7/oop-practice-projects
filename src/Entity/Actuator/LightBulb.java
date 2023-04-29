@@ -1,6 +1,8 @@
-package Entity;
+package Entity.Actuator;
 
-public class LightBulb implements Actuator{
+import Entity.Actuator.Actuator;
+
+public class LightBulb implements Actuator {
     private boolean isOpen;
     public LightBulb() {
         this.isOpen = false;

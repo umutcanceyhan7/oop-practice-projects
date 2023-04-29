@@ -1,6 +1,8 @@
-package Entity;
+package Entity.Actuator;
 
-public class DoorLock implements Actuator{
+import Entity.Actuator.Actuator;
+
+public class DoorLock implements Actuator {
     private boolean isLocked;
 
     public DoorLock() {

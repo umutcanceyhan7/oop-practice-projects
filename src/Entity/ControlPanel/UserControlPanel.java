@@ -1,5 +1,9 @@
-package Entity;
-public class UserControlPanel implements ControlPanel{
+package Entity.ControlPanel;
+
+import Entity.ControlPanel.ControlPanel;
+import Entity.Mediator;
+
+public class UserControlPanel implements ControlPanel {
     private Mediator smartHome;
 
     public UserControlPanel() {

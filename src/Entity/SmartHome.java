@@ -1,5 +1,12 @@
 package Entity;
 
+import Entity.Actuator.DoorLock;
+import Entity.Actuator.LightBulb;
+import Entity.Actuator.Thermostat;
+import Entity.Sensor.LightSensor;
+import Entity.Sensor.MotionSensor;
+import Entity.Sensor.TemperatureSensor;
+
 public class SmartHome implements Mediator{
     private TemperatureSensor temperatureSensor;
     private LightSensor lightSensor;
