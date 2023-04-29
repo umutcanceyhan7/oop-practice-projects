@@ -1,17 +1,25 @@
 package Entity;
 
+import Helper.Helper;
+
 public class MotionSensor implements Sensor {
-    @Override
-    public void getReading() {
+    private boolean isMotionDetected;
+
+    public MotionSensor() {
+        this.isMotionDetected = false;
     }
 
     @Override
-    public String getType() {
-        return null;
+    public Boolean getReading() {
+        setIsMotionDetectedValue(Helper.generateRandBooleanValue());
+        return getIsMotionDetectedValue();
     }
 
-    @Override
-    public void setMediator(Mediator mediator) {
+    private boolean getIsMotionDetectedValue() {
+        return isMotionDetected;
+    }
 
+    private void setIsMotionDetectedValue(boolean isMotionDetected) {
+        this.isMotionDetected = isMotionDetected;
     }
 }

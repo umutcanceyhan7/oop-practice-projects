@@ -1,7 +1,6 @@
 package Entity;
 
 public class Thermostat implements Actuator{
-    private Mediator mediator;
     private int currentTemperature;
     private int desiredTemperature;
 
@@ -11,37 +10,31 @@ public class Thermostat implements Actuator{
     }
 
     @Override
-    public void performAction() {
-        if(getDesiredTemperature() != getCurrentTemperature()){
-            setCurrentTemperature(getDesiredTemperature());
-            System.out.println("Thermostat increased temperature to " + getCurrentTemperature() + " degrees");
-
+    // Validate the value, if it passes validations, perform the action.
+    // Otherwise, print current situation!
+    public void performAction(Object desiredValue) {
+        if((Integer) desiredValue == getCurrentTemperature()){
+            System.out.println("Temperature is already in desired value!");
+            return;
         }
+        setDesiredTemperature((Integer) desiredValue);
+        System.out.println("Thermostat will increase temperature to " + getDesiredTemperature() + " degrees");
+        setCurrentTemperature(getDesiredTemperature());
+        System.out.println("Temperature is increased to " + getCurrentTemperature() + " degrees");
     }
-
-    @Override
-    public String getType() {
-        return "Thermostat";
-    }
-
-    @Override
-    public void setMediator(Mediator mediator) {
-        this.mediator = mediator;
-    }
-
-    public int getCurrentTemperature() {
+    private int getCurrentTemperature() {
         return currentTemperature;
     }
 
-    public void setCurrentTemperature(int currentTemperature) {
+    private void setCurrentTemperature(int currentTemperature) {
         this.currentTemperature = currentTemperature;
     }
 
-    public int getDesiredTemperature() {
+    private int getDesiredTemperature() {
         return desiredTemperature;
     }
 
-    public void setDesiredTemperature(int desiredTemperature) {
+    private void setDesiredTemperature(int desiredTemperature) {
         this.desiredTemperature = desiredTemperature;
     }
 }

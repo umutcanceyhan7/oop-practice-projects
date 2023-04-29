@@ -1,32 +1,21 @@
 package Entity;
 
+import Helper.Helper;
+
 public class LightSensor implements Sensor{
-    private double lightValue;
-    private Mediator mediator;
-
+    private boolean isLightNeeded;
     public LightSensor() {
-        this.lightValue = 0;
+        this.isLightNeeded = false;
     }
-
     @Override
-    public void getReading() {
+    public Boolean getReading() {
+        setIsLightNeededValue(Helper.generateRandBooleanValue());
+        return getIsLightNeededValue();
     }
-
-    @Override
-    public String getType() {
-        return "lightBulb";
+    private void setIsLightNeededValue(boolean isLightNeeded) {
+        this.isLightNeeded = isLightNeeded;
     }
-
-    @Override
-    public void setMediator(Mediator mediator) {
-        this.mediator = mediator;
-    }
-
-    public double getLightValue() {
-        return lightValue;
-    }
-
-    public void setLightValue(double lightValue) {
-        this.lightValue = lightValue;
+    private boolean getIsLightNeededValue() {
+        return this.isLightNeeded;
     }
 }

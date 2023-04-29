@@ -1,0 +1,73 @@
+@startuml
+interface Sensor {
+        +getReading(): double
+        +getType(): SensorType
+    }
+    class TemperatureSensor {
+        -temperature: double
+        -desiredTemperature: double
+    }
+    class LightSensor {
+        -isOpen: boolean
+    }
+    class MotionSensor {
+        -isMotionDetected: boolean
+    }
+    interface Actuator {
+        +performAction(): void
+        +getType(): ActuatorType
+    }
+    class Thermostat {
+        -temperature: double
+        -desiredTemperature: double
+    }
+    class LightBulb {
+        -temperature: double
+        -desiredTemperature: double
+    }
+
+    class DoorLock {
+    }
+    interface ControlPanel {
+        +setTemperature(int desiredTemp): void
+        +toggleLights(): void
+        +toggleDoor(): void
+    }
+    class UserControlPanel {
+    }
+    interface SmartHome {
+        +setTemperature(int desiredTemp): void
+        +toggleLights(): void
+        +toggleDoor(): void
+        +performAction(): void
+    }
+class User {
+   +updateTemparature(int desiredTemp): void
+   +openLights(): void
+   +closeLights(): void
+   +lockTheDoor(): void
+   +unlockTheDoor(): void
+}
+    enum SensorType {
+        temperature
+        light
+        motion
+    }
+    enum ActuatorType {
+        thermostat
+        lightBulb
+        doorLock
+    }
+
+ControlPanel --o SmartHome
+Sensor --o  SmartHome
+Actuator --o SmartHome
+Sensor <|-- TemperatureSensor
+Sensor <|-- LightSensor
+Sensor <|-- MotionSensor
+Thermostat  --|>  Actuator
+LightBulb  --|>   Actuator
+DoorLock  --|> Actuator
+ControlPanel <|--  UserControlPanel
+User o-- ControlPanel
+@enduml

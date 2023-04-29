@@ -1,21 +1,40 @@
 package Entity;
-
 public class UserControlPanel implements ControlPanel{
-    private Mediator mediator;
+    private Mediator smartHome;
+
+    public UserControlPanel() {
+    }
+
     @Override
     public void setTemperature(int desiredTemp) {
-        mediator.setTemperature(desiredTemp);
+        getSmartHome().updateTemperature(desiredTemp);
     }
+
     @Override
-    public void toggleLights() {
-        mediator.toggleLights();
+    public void openLights() {
+        getSmartHome().updateLights(true);
     }
+
     @Override
-    public void toggleDoor() {
-        mediator.toggleDoor();
+    public void closeLights() {
+        getSmartHome().updateLights(false);
     }
+
     @Override
-    public void setMediator(Mediator mediator) {
-        this.mediator = mediator;
+    public void lockTheDoor() {
+        getSmartHome().updateDoor(false);
+    }
+
+    @Override
+    public void unlockTheDoor() {
+        getSmartHome().updateDoor(true);
+    }
+
+    public Mediator getSmartHome() {
+        return smartHome;
+    }
+
+    public void setMediator(Mediator smartHome) {
+        this.smartHome = smartHome;
     }
 }

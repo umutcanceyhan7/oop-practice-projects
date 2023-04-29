@@ -1,7 +1,6 @@
 package Entity;
 
 public class DoorLock implements Actuator{
-    private Mediator mediator;
     private boolean isLocked;
 
     public DoorLock() {
@@ -9,26 +8,27 @@ public class DoorLock implements Actuator{
     }
 
     @Override
-    public void performAction() {
-        setIsLocked(!getIsLocked());
+    // Validate the value, if it passes validations, perform the action.
+    // Otherwise, print current situation!
+    public void performAction(Object isMotionDetected) {
+        // Validations
+        boolean theDoorIsUnlockedAndMotionIsDetected = ((Boolean) isMotionDetected && !getIsLocked());
+        boolean theDoorIsLockedAndMotionIsNotDetected = (!(Boolean)isMotionDetected && getIsLocked());
+        // Control
+        if(theDoorIsUnlockedAndMotionIsDetected || theDoorIsLockedAndMotionIsNotDetected){
+            if(!getIsLocked()) {
+                System.out.println("The door is already " + (getIsLocked() ? "locked" : "unlocked") + "!");
+                return;
+            }
+        }
+        // Handle
+        setIsLocked(!(Boolean)isMotionDetected);
         System.out.println("The door is " + (getIsLocked() ? "locked" : "unlocked"));
     }
-
-    @Override
-    public String getType() {
-        return "Door Lock";
-    }
-
-    @Override
-    public void setMediator(Mediator mediator) {
-        this.mediator = mediator;
-    }
-
-    public boolean getIsLocked() {
+    private boolean getIsLocked() {
         return this.isLocked;
     }
-
-    public void setIsLocked(boolean isLocked) {
+    private void setIsLocked(boolean isLocked) {
         this.isLocked = isLocked;
     }
 }
