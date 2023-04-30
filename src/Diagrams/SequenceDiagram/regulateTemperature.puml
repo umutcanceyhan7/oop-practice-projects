@@ -4,8 +4,10 @@ participant SmartHome order 100
 participant Thermostat order 300
 participant Helper order 500
 
-SmartHome -> SmartHome: currentTemperature\n (decided randomly)
-SmartHome -> TemperatureSensor: setTemperature(int currTemp)
+TemperatureSensor -> Helper: generateRandTemperatureValue()
+Helper --> TemperatureSensor: int
+SmartHome -> TemperatureSensor: getSensedValue()
+TemperatureSensor --> SmartHome: Integer
 alt 20 <= currentTemperature <= 25
 SmartHome -> Helper: No action required
 else
