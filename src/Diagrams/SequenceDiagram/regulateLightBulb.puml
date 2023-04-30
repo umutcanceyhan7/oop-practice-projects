@@ -2,7 +2,7 @@
 participant LightBulb order 300
 participant ControlPanel order 100
 participant SmartHome order 200
-participant Display order 500
+participant Helper order 500
 participant LightSensor order 400
 
 
@@ -12,11 +12,11 @@ alt command == closeLights
 SmartHome -> LightBulb: performAction(false)
 LightBulb -> SmartHome:
 SmartHome -> LightSensor: setIsOpen(false)
-LightSensor -> Display: display()
+LightSensor -> Helper: display()
 else command == openLights
 SmartHome -> LightBulb: performAction(true)
 LightBulb -> SmartHome:
 SmartHome -> LightSensor: setIsOpen(true)
-LightSensor -> Display: display()
+LightSensor -> Helper: display()
 end
 @enduml

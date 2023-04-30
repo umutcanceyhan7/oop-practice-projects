@@ -3,7 +3,7 @@ participant MotionSensor order 200
 participant SmartHome order 100
 participant ControlPanel order 90
 participant DoorLock order 300
-participant Display order 500
+participant Helper order 500
 
 DoorLock -> DoorLock: initially\nisLocked = true
 ControlPanel -> SmartHome: command
@@ -11,11 +11,11 @@ alt command == lockTheDoor()
 SmartHome -> DoorLock: performAction(true)
 DoorLock -> SmartHome:
 SmartHome -> MotionSensor: setIsOpen(false)
-MotionSensor -> Display: display()
+MotionSensor -> Helper: display()
 else command == unlockTheDoor()
 SmartHome -> DoorLock: performAction(false)
 DoorLock -> SmartHome:
 SmartHome -> MotionSensor: setIsOpen(true)
-MotionSensor -> Display: display()
+MotionSensor -> Helper: display()
 end
 @enduml
