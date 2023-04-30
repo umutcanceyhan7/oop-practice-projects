@@ -4,41 +4,33 @@ import Entity.ControlPanel.ControlPanel;
 import Entity.Mediator;
 
 public class UserControlPanel implements ControlPanel {
-    private Mediator smartHome;
+    private Mediator mediator;
 
     public UserControlPanel() {
     }
-
-    @Override
-    public void setTemperature(int desiredTemp) {
-        getSmartHome().updateTemperature(desiredTemp);
-    }
-
     @Override
     public void openLights() {
-        getSmartHome().updateLights(true);
+        getMediator().regulateLightBulb(true);
     }
 
     @Override
     public void closeLights() {
-        getSmartHome().updateLights(false);
+        getMediator().regulateLightBulb(false);
     }
 
     @Override
     public void lockTheDoor() {
-        getSmartHome().updateDoor(false);
+        getMediator().regulateDoorLock(false);
     }
 
     @Override
     public void unlockTheDoor() {
-        getSmartHome().updateDoor(true);
+        getMediator().regulateDoorLock(true);
     }
-
-    public Mediator getSmartHome() {
-        return smartHome;
+    private Mediator getMediator() {
+        return mediator;
     }
-
-    public void setMediator(Mediator smartHome) {
-        this.smartHome = smartHome;
+    public void setMediator(Mediator mediator) {
+        this.mediator = mediator;
     }
 }

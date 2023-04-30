@@ -1,28 +1,43 @@
 @startuml
 interface Sensor {
-        +getReading(): double
-    }
-    class TemperatureSensor {
-    }
-    class LightSensor {
-    }
-    class MotionSensor {
-    }
-    interface Actuator {
-        +performAction(): void
-    }
-    class Thermostat {
-        -currentTemperature: double
-        -desiredTemperature: double
-    }
-    class LightBulb {
-        -isOpen: boolean
-    }
-    class DoorLock {
-        -isLocked: boolean
-    }
+        getSensedValue(): Object
+        setSensedValue(sensedValue: Object): void
+}
+class TemperatureSensor {
+    -currentTemperature: int
+    +TemperatureSensor(initialTemperature: int)
+}
+class LightSensor {
+    -isOpen: boolean
+}
+class MotionSensor {
+    -isMotionDetected: boolean
+}
+interface Actuator {
+    +performAction(): void
+}
+class Thermostat {
+    -desiredTemperatureLowValue: int;
+    -desiredTemperatureHighValue: int;
+    -currentState: STATE;
+    +Thermostat(desTempLowVal: int, desTempHighVal: int)
+    -activateHeatingState(): void
+    -activateCoolingState(): void
+    -deactivateTheThermostat(): void
+    -getDesiredTemperatureHighValue(): int
+    -getDesiredTemperatureLowValue(): int
+}
+class LightBulb {
+    -isOpen: boolean
+    -getIsOpen: boolean
+    -setIsOpen(boolean isOpen): void
+}
+class DoorLock {
+    -isLocked: boolean
+    -getIsLocked(): boolean
+    -setIsLocked(boolean isLocked): void
+}
 interface ControlPanel {
-    +setTemperature(int desiredTemp): void
     +openLights(): void
     +closeLights(): void
     +lockTheDoor(): void
@@ -38,16 +53,14 @@ interface SmartHome {
     -thermostat: Thermostat
     -lightBulb: LightBulb
     -doorLock: DoorLock
-    +regulateTemperature: void
-    +regulateLightBulb: void
-    +regulateDoorLock: void
-    +updateTemperature: void
+    +regulateTemperature(int currentTemp): void
+    +regulateLightBulb(boolean isOpen): void
+    +regulateDoorLock(boolean isLocked): void
     +updateLights: void
     +updateDoor: void
 }
 class User {
    -controlPanel: ControlPanel
-   +updateTemperature(int desiredTemp): void
    +openLights(): void
    +closeLights(): void
    +lockTheDoor(): void

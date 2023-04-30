@@ -7,9 +7,6 @@ public class User {
     public User(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
     }
-    public void updateTemperature(int desiredTemp){
-        controlPanel.setTemperature(desiredTemp);
-    }
     public void openLights(){
         controlPanel.openLights();
     };

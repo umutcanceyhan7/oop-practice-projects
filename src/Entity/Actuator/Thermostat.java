@@ -1,42 +1,62 @@
 package Entity.Actuator;
 
-import Entity.Actuator.Actuator;
-
 public class Thermostat implements Actuator {
-    private int currentTemperature;
-    private int desiredTemperature;
-
-    public Thermostat(int currentTemperature) {
-        this.currentTemperature = currentTemperature;
-        this.desiredTemperature = currentTemperature;
+    public STATE getCurrentState() {
+        return currentState;
     }
+    enum STATE{
+        STANDBY,
+        COOLING,
+        HEATING
+    }
+    private final int desiredTemperatureLowValue;
+    private final int desiredTemperatureHighValue;
+    private STATE currentState;
 
+    public Thermostat(int desiredTemperatureLowValue, int desiredTemperatureHighValue) {
+        this.currentState = STATE.STANDBY;
+        this.desiredTemperatureLowValue = desiredTemperatureLowValue;
+        this.desiredTemperatureHighValue = desiredTemperatureHighValue;
+    }
     @Override
-    // Validate the value, if it passes validations, perform the action.
-    // Otherwise, print current situation!
-    public void performAction(Object desiredValue) {
-        if((Integer) desiredValue == getCurrentTemperature()){
-            System.out.println("Temperature is already in desired value!");
-            return;
+    // Validate the value, perform the action accordingly.
+    // Then send to display to print current situation!
+    public Integer performAction(Object desiredValue) {
+        // Validation
+        boolean isTemperatureInDesiredRange = getDesiredTemperatureLowValue() <= (Integer) desiredValue && (Integer) desiredValue <= getDesiredTemperatureHighValue();
+
+        // Standby state
+        if(isTemperatureInDesiredRange){
+            this.deactivateTheThermostat();
+            return (Integer) desiredValue;
         }
-        setDesiredTemperature((Integer) desiredValue);
-        System.out.println("Thermostat will increase temperature to " + getDesiredTemperature() + " degrees");
-        setCurrentTemperature(getDesiredTemperature());
-        System.out.println("Temperature is increased to " + getCurrentTemperature() + " degrees");
+        // Heating state
+        if((Integer) desiredValue < getDesiredTemperatureLowValue()){
+            this.activateHeatingState();
+            // Increase temperature
+            return (Integer) desiredValue + 1;
+        }
+        // Cooling state
+        else{
+            this.activateCoolingState();
+            // Decrease temperature
+            return (Integer) desiredValue - 1;
+        }
     }
-    private int getCurrentTemperature() {
-        return currentTemperature;
+    private void activateHeatingState(){
+        this.currentState = STATE.HEATING;
     }
 
-    private void setCurrentTemperature(int currentTemperature) {
-        this.currentTemperature = currentTemperature;
+    private void activateCoolingState(){
+        this.currentState = STATE.COOLING;
     }
-
-    private int getDesiredTemperature() {
-        return desiredTemperature;
+    private void deactivateTheThermostat(){
+        this.currentState = STATE.STANDBY;
     }
-
-    private void setDesiredTemperature(int desiredTemperature) {
-        this.desiredTemperature = desiredTemperature;
+    private int getDesiredTemperatureHighValue() {
+        return desiredTemperatureHighValue;
+    }
+    private int getDesiredTemperatureLowValue() {
+        return desiredTemperatureLowValue;
     }
 }

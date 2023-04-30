@@ -11,53 +11,43 @@ public class Simulation {
     static final int INITIAL_MINIMUM_TEMP_VALUE = 20;
     public void run(){
         Helper helper = new Helper();
+        helper.display("***- Simulation has been started -***");
         Mediator smartHome = helper.setUpMediator();
         ControlPanel userControlPanel = new UserControlPanel();
         userControlPanel.setMediator(smartHome);
         User user = new User(userControlPanel);
         for (int i = 0; i < SIMULATION_DURATION; i++) {
+            // Counter
+            helper.display("---------- " + (i + 1)  + " seconds has passed ----------" );
             // Control panel directives from user
             // Helper calculates the possibility for user action if it is true user sends a command
             boolean shouldUserUpdateDoor = Helper.generateRandBooleanValue();
             boolean shouldUserUpdateLightBulb = Helper.generateRandBooleanValue();
-            boolean shouldUserUpdateTemperature = Helper.generateRandBooleanValue();
 
-            // If user wants to change something from control panel, program accepts user value and denies sensor value.
-            // Otherwise, sensor value is read and necessary action is performed.
+            // Checks initial temperature and performs action accordingly
+            smartHome.regulateTemperature();
 
-            // User Temperature Command
-            if(shouldUserUpdateTemperature){
-                user.updateTemperature(Helper.generateRandTemperatureValue());
-            }
-            // Sensor check
-            else{
-                smartHome.regulateTemperature();
-            }
-
+            // If user wants to change something from control panel, program accepts user value.
             // User Light Command
             if(shouldUserUpdateLightBulb){
+                // Light Command is decided randomly
                 if (Helper.generateRandBooleanValue()) {
                     user.openLights();
                 } else {
                     user.closeLights();
                 }
             }
-            // Sensor check
-            else {
-                smartHome.regulateLightBulb();
-            }
             // User Door Command
             if (shouldUserUpdateDoor) {
+                // Door Command is decided randomly
                 if (Helper.generateRandBooleanValue()) {
                     user.unlockTheDoor();
                 } else {
                     user.lockTheDoor();
                 }
             }
-            // Sensor Check
-            else {
-                smartHome.regulateDoorLock();
-            }
+            smartHome.displayResults();
         }
+        helper.display("***- Simulation has been halted -***");
     }
 }

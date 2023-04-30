@@ -1,5 +1,6 @@
 package Entity.Sensor;
 
 public interface Sensor {
-    public Object getReading();
+    Object getSensedValue();
+    void setSensedValue(Object sensedValue);
 }

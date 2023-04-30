@@ -10,15 +10,14 @@ public class LightBulb implements Actuator {
     @Override
     // Validate the value, if it passes validations, perform the action.
     // Otherwise, print current situation!
-    public void performAction(Object isLightNeeded) {
-        boolean lightIsNeededAndLightIsOpen = (Boolean) isLightNeeded && getIsOpen();
-        boolean lightIsNotNeededAndLightIsNotOpen = !((Boolean) isLightNeeded && getIsOpen());
-        if(lightIsNeededAndLightIsOpen || lightIsNotNeededAndLightIsNotOpen){
-            System.out.println("Light bulb is already " + (getIsOpen() ? "open" : "closed") + "!");
-            return;
+    public Boolean performAction(Object shouldLightOpen) {
+        boolean lightShouldBeOpenAndLightIsAlreadyOpen = (Boolean) shouldLightOpen && getIsOpen();
+        boolean lightShouldNotBeOpenAndLightIsNotOpen = (!(Boolean) shouldLightOpen && !getIsOpen());
+        if(lightShouldBeOpenAndLightIsAlreadyOpen || lightShouldNotBeOpenAndLightIsNotOpen){
+            return getIsOpen();
         }
-        setIsOpen((Boolean) isLightNeeded);
-        System.out.println("Light bulb is now " + (getIsOpen() ? "open" : "closed"));
+        setIsOpen((Boolean) shouldLightOpen);
+        return getIsOpen();
     }
 
     private boolean getIsOpen() {

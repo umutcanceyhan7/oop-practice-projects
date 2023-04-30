@@ -1,7 +1,5 @@
 package Entity.Actuator;
 
-import Entity.Actuator.Actuator;
-
 public class DoorLock implements Actuator {
     private boolean isLocked;
 
@@ -12,20 +10,17 @@ public class DoorLock implements Actuator {
     @Override
     // Validate the value, if it passes validations, perform the action.
     // Otherwise, print current situation!
-    public void performAction(Object isMotionDetected) {
+    public Boolean performAction(Object shouldDoorUnlocked) {
         // Validations
-        boolean theDoorIsUnlockedAndMotionIsDetected = ((Boolean) isMotionDetected && !getIsLocked());
-        boolean theDoorIsLockedAndMotionIsNotDetected = (!(Boolean)isMotionDetected && getIsLocked());
+        boolean theDoorShouldUnlockAndItIsAlreadyUnlocked = ((Boolean) shouldDoorUnlocked && !getIsLocked());
+        boolean theDoorShouldNotUnlockAndItIsLocked = (!(Boolean)shouldDoorUnlocked && getIsLocked());
         // Control
-        if(theDoorIsUnlockedAndMotionIsDetected || theDoorIsLockedAndMotionIsNotDetected){
-            if(!getIsLocked()) {
-                System.out.println("The door is already " + (getIsLocked() ? "locked" : "unlocked") + "!");
-                return;
-            }
+        if(theDoorShouldUnlockAndItIsAlreadyUnlocked || theDoorShouldNotUnlockAndItIsLocked){
+            return getIsLocked();
         }
         // Handle
-        setIsLocked(!(Boolean)isMotionDetected);
-        System.out.println("The door is " + (getIsLocked() ? "locked" : "unlocked"));
+        setIsLocked(!(Boolean)shouldDoorUnlocked);
+        return getIsLocked();
     }
     private boolean getIsLocked() {
         return this.isLocked;
