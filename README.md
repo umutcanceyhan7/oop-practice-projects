@@ -81,12 +81,12 @@ the given CSV file and create the desired queries.
 
 After creating the user, quiz, and other necessary objects, please display the results of the
 following queries:
-1- The user who has the maximum points.
-2- The user who is in the most advanced Unit in German (Hint: Unit 10 is more advanced
+1. The user who has the maximum points.
+2. The user who is in the most advanced Unit in German (Hint: Unit 10 is more advanced
 than Unit 9)
-3- The language which has the maximum number of units
-4- The language which has the maximum number of quizzes
-5- The top three users in the Silver league for Italian
+3. The language which has the maximum number of units
+4. The language which has the maximum number of quizzes
+5. The top three users in the Silver league for Italian
 
 ---
 
@@ -98,4 +98,53 @@ is normal.
 
 Please record the chosen language, the current Unit, the number of solved quizzes, and the
 total points to “users.csv” after each run (they may be changed after each run). 
+</details>
+
+## 2 Smart Home Project
+### Used Concepts
+1. Mediator Design Pattern
+2. UML Class Diagrams
+3. UML Sequence Diagrams
+4. UML State Diagrams 
+<details>
+ <summary>Project Details</summary>
+
+In this application we will implement a simulation program for a smart home automation
+system. The system should have a *mediator object* that manages communication between various
+components of the smart home, such as *sensors*, *actuators*, and a *control panel*. The components
+should not communicate with each other directly, but through the mediator object. The simulation
+program should have the following requirements:
+
+---
+
+1. The system should have three types of sensors: temperature sensor, light sensor, and motion
+sensor. Each sensor should periodically send a reading to the mediator object.
+2. The system should have three types of actuators: thermostat, light bulb, and door lock. Each
+actuator should receive commands from the mediator object and perform the corresponding
+action.
+3. The system should have at least one control panel that allows the user to set temperature,
+turn on/off lights, and lock/unlock doors. The control panel should send commands to the
+mediator object.
+4. The mediator object should process the sensor readings and send commands to the
+appropriate actuators based on the user's commands and the sensor readings. For example,
+if the temperature reading is too low or high (20° C - 25° C), the mediator should send a
+command to the thermostat to lower the temperature.
+5. The simulation program should run for a specified duration, during which the sensors should
+periodically send readings to the mediator and the control panel should send commands to
+the mediator. The program should output the current state of the system (temperature, light
+status, door status) to the console at regular intervals (each 1 second).
+
+
+---
+
+The goal is to implement the mediator design pattern to manage the communication between the
+sensors, actuators, and control panel, and to simulate the smart home automation system. We will
+write a Java program that implements the mediator, sensors, actuators, control panel, and
+simulation logic, and outputs the system state to the console for 20 seconds. We will randomly
+decide the values and the commands for the actuators (thermostat should be automatic).
+
+---
+
+Lastly, we will support the design by drawing UML Class diagrams, UML Sequence diagrams, and UML State diagrams. 
+ 
 </details>
